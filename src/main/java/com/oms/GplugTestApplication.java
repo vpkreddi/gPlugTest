@@ -1,4 +1,4 @@
-package com.oms.app;
+package com.oms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.oms")
 @EnableMongoRepositories(basePackages = "com.oms.repositories")
 @EnableMongoAuditing
 @EnableScheduling

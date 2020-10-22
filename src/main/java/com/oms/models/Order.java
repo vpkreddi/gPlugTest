@@ -11,6 +11,7 @@ public class Order {
 
 	private Long id;
 	private Date order_date;
+	private Double order_amount;
 	private Double discount_value;
 	private Double discount_percentage;
 	
