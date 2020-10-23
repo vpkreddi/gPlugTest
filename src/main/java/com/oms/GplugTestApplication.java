@@ -3,7 +3,6 @@ package com.oms;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -19,7 +18,7 @@ public class GplugTestApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GplugTestApplication.class, args);
 	}
-	
+
 	@Bean("threadPoolTaskExecutor")
 	public TaskExecutor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -29,4 +28,5 @@ public class GplugTestApplication {
 		executor.setThreadNamePrefix("Async-");
 		return executor;
 	}
+
 }

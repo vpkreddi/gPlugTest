@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 public class Order {
 
-	private Long id;
+	private String id;
 	private Date order_date;
 	private Double order_amount;
-	private Double discount_value;
+	private Double discount_value=0.0;
 	private Double discount_percentage;
 	
 }

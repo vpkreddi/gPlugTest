@@ -1,7 +1,5 @@
 package com.oms.controller;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +21,23 @@ import com.oms.service.CustomerService;
 @RequestMapping("/customer")
 @Validated
 public class CustomerController {
-		
-		@Autowired
-		CustomerService customerService;
-		
-		@Autowired
-		CustomerRepository customerRepo;
-	
 
-		@PostMapping( value="",consumes=MediaType.APPLICATION_JSON_VALUE)
-		@Validated
-		public ResponseEntity<Customer> createCustomer(@RequestBody @Valid Customer customer){
-			return ResponseEntity.ok(customer);
-		}
-		
-		@PostMapping(value = "/order",consumes=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<OrderResponse> createOrder(@RequestBody @Valid OrderRequest orderData){
-			OrderResponse orderResponse = customerService.createOrder(orderData);
-			return ResponseEntity.ok(orderResponse);
-		}
+	@Autowired
+	CustomerService customerService;
+
+	@Autowired
+	CustomerRepository customerRepo;
+
+	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Validated
+	public ResponseEntity<Customer> createCustomer(@RequestBody @Valid Customer customer) {
+		Customer customerDb = customerService.save(customer);
+		return ResponseEntity.ok(customerDb);
+	}
+
+	@PostMapping(value = "/order", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<OrderResponse> createOrder(@RequestBody @Valid OrderRequest orderData) throws Exception {
+		OrderResponse orderResponse = customerService.createOrder(orderData);
+		return ResponseEntity.ok(orderResponse);
+	}
 }
