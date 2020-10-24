@@ -4,7 +4,7 @@
 
 docker build --pull --rm -f "Dockerfile" -t gplugtest:latest "." 
 
--- run below command from with in this directory
+-- run below command from with in this directory to bring up db, app services
 
 docker-compose up
 
