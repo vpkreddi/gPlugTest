@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import com.oms.models.OrderResponse;
@@ -23,13 +25,14 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepo;
 
-	public OrderResponse createOrder(OrderRequest orderData) throws Exception {
+	public synchronized OrderResponse createOrder(OrderRequest orderData) throws Exception {
 		Optional<Customer> customer = customerRepo.findById(orderData.getCustomerId());
 		OrderResponse orderRes = new OrderResponse();
 		if (customer.isEmpty()) {
 			throw new Exception("some thing wrong");
 		} else {
 			CustomerType type = customer.get().getType();
+			System.out.println("thread name---------"+Thread.currentThread().getName());
 			checkAndUpdateCustomerType(customer.get());
 			Order order = new Order();
 			order.setId("OD" + genUniqueOrderId());
@@ -61,7 +64,7 @@ public class CustomerService {
 		return orderRes;
 	}
 
-	private synchronized void checkAndUpdateCustomerType(Customer customer) {
+	private  void checkAndUpdateCustomerType(Customer customer) throws InterruptedException {
 		if(customer.getOrders()==null || customer.getOrders().size()+1<10) {
 			
 		}else if(customer.getOrders().size()+1==10) {
